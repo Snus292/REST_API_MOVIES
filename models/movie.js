@@ -1,28 +1,31 @@
 'use strict';
-const {
-  Model
-} = require('sequelize');
+const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class Movie extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
     static associate(models) {
-      // define association here
-      
+      // Связь "один ко многим" с Director
+      Movie.belongsTo(models.Director, { foreignKey: 'directorId' });
+
+      // Связь "многие ко многим" с Genre
+      Movie.belongsToMany(models.Genre, { through: 'MoviesGenres', foreignKey: 'movieId' });
+
+      // Связь "многие ко многим" с Actor
+      Movie.belongsToMany(models.Actor, { through: 'MoviesActors', foreignKey: 'movieId' });
     }
   }
+  
   Movie.init({
     title: DataTypes.STRING,
-    description: DataTypes.TEXT,
     release_year: DataTypes.INTEGER,
-    genreId: DataTypes.INTEGER,
-    directorId: DataTypes.INTEGER
+    run_time: DataTypes.INTEGER,
+    rating: DataTypes.FLOAT,
+    meta_score: DataTypes.FLOAT,
+    votes: DataTypes.INTEGER,
+    gross: DataTypes.FLOAT,
   }, {
     sequelize,
     modelName: 'Movie',
   });
+
   return Movie;
 };

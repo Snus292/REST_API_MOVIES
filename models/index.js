@@ -17,7 +17,7 @@ if (config.use_env_variable) {
 }
 
 fs
-  .readdirSync(__dirname)
+  .readdirSync(__dirname)  // Загружаем модели из папки models
   .filter(file => {
     return (
       file.indexOf('.') !== 0 &&
@@ -27,9 +27,10 @@ fs
     );
   })
   .forEach(file => {
-    const model = require(path.join(__dirname, file))(sequelize, Sequelize.DataTypes);
+    const model = require(path.join(__dirname,  file))(sequelize, Sequelize.DataTypes);  // Загружаем модели из правильного пути
     db[model.name] = model;
   });
+
 
 Object.keys(db).forEach(modelName => {
   if (db[modelName].associate) {
