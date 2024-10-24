@@ -1,5 +1,5 @@
 'use strict';
-/** @type {import('sequelize-cli').Migration} */
+
 module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.createTable('Movies', {
@@ -10,20 +10,46 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       title: {
-        type: Sequelize.STRING
-      },
-      description: {
-        type: Sequelize.TEXT
+        type: Sequelize.STRING,
+        allowNull: false
       },
       release_year: {
+        type: Sequelize.INTEGER,
+        allowNull: false
+      },
+      run_time: { 
         type: Sequelize.INTEGER
       },
-      genreId: {
+      rating: {
+        type: Sequelize.FLOAT
+      },
+      meta_score: {
+        type: Sequelize.FLOAT
+      },
+      votes: {
         type: Sequelize.INTEGER
+      },
+      gross: {
+        type: Sequelize.FLOAT
       },
       directorId: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'Directors', // Убедитесь, что эта таблица существует
+          key: 'id'
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'SET NULL'
       },
+      // genreId: {
+      //   type: Sequelize.INTEGER,
+      //   references: {
+      //     model: 'Genres', // Убедитесь, что эта таблица существует
+      //     key: 'id'
+      //   },
+      //   onUpdate: 'CASCADE',
+      //   onDelete: 'SET NULL'
+      // },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE
@@ -34,6 +60,7 @@ module.exports = {
       }
     });
   },
+
   async down(queryInterface, Sequelize) {
     await queryInterface.dropTable('Movies');
   }
