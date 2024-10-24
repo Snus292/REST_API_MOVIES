@@ -66,5 +66,5 @@ const importMovies = async () => {
   }
 };
 
-// Запуск функции импорта
+// Запуск функции импортаа
 importMovies();
