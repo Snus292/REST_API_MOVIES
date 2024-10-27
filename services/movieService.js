@@ -20,6 +20,9 @@ const createMovie = async (data) => {
 
 	return movie;
 };
+const findMovieByTitle = async (title) => {
+	return await Movie.findOne({ where: { title } });
+};
 
 // Получение фильмов с фильтрацией и пагинацией
 const getMovies = async (query) => {
@@ -86,6 +89,7 @@ const removeActorFromMovie = async (movieId, actorId) => {
 module.exports = {
 	getMovies,
 	createMovie,
+	findMovieByTitle,
 	updateMovie,
 	deleteMovie,
 	getMovieById,

@@ -3,6 +3,12 @@ const movieService = require('../services/movieService');
 // Создание фильма
 exports.createMovie = async (req, res) => {
   try {
+    const { title } = req.body
+    // Проверка на существование актера с таким именем
+    const existingMovie = await movieService.findMovieByTitle(title); // Предполагается, что этот метод реализован в actorService
+    if (existingMovie) {
+      return res.status(400).json({ message: 'фильм с таким именем уже существует' });
+    }
     const movie = await movieService.createMovie(req.body);
     res.status(201).json(movie);
   } catch (error) {
