@@ -1,15 +1,17 @@
-POST http://localhost:3000/movies
-Content-Type: application/json
+# POST http://localhost:3000/movies
+# Content-Type: application/json
 
-{
-    "title": "Inceptionnnnn",
-    "release_year": 2010,
-    "run_time": 148,
-    "rating": 8.8,
-    "meta_score": 74,
-    "votes": 2099854,
-    "gross": 292.58,
-    "directorId": 1,
-    "genres": [1, 2],
-    "actors": [1, 2, 3]
-}
+# {
+#     "title": "Inceptionnnnn",
+#     "release_year": 2010,
+#     "run_time": 148,
+#     "rating": 8.8,
+#     "meta_score": 74,
+#     "votes": 2099854,
+#     "gross": 292.58,
+#     "directorId": 1,
+#     "genres": [1, 2],
+#     "actors": [1, 2, 3]
+# }
+GET http://localhost:3000/actors/1
+
