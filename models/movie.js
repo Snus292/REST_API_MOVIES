@@ -22,6 +22,7 @@ module.exports = (sequelize, DataTypes) => {
     meta_score: DataTypes.FLOAT,
     votes: DataTypes.INTEGER,
     gross: DataTypes.FLOAT,
+    directorId: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'Movie',

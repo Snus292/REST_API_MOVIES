@@ -41,15 +41,6 @@ module.exports = {
         onUpdate: 'CASCADE',
         onDelete: 'SET NULL'
       },
-      // genreId: {
-      //   type: Sequelize.INTEGER,
-      //   references: {
-      //     model: 'Genres', // Убедитесь, что эта таблица существует
-      //     key: 'id'
-      //   },
-      //   onUpdate: 'CASCADE',
-      //   onDelete: 'SET NULL'
-      // },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE
