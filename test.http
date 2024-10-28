@@ -13,5 +13,6 @@
 #     "genres": [1, 2],
 #     "actors": [1, 2, 3]
 # }
-GET http://localhost:3000/actors/1
+
+GET http://localhost:3000/actors?movieId=5
 
