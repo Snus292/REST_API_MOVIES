@@ -24,7 +24,6 @@ const findMovieByTitle = async (title) => {
 	return await Movie.findOne({ where: { title } });
 };
 
-// Получение фильмов с фильтрацией и пагинацией
 const getMovies = async (query) => {
 	const { page = 1, limit = 10, directorId, genreId, actorId } = query;
 	const offset = (page - 1) * limit;
