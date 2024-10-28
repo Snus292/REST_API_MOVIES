@@ -1,4 +1,4 @@
-# POST http://localhost:3000/movies
+# post http://localhost:3000/movies
 # Content-Type: application/json
 
 # {
@@ -14,5 +14,15 @@
 #     "actors": [1, 2, 3]
 # }
 
-GET http://localhost:3000/actors?movieId=5
+# GET http://localhost:3000/actors?movieId=5
+# get http://localhost:3000/movies/5
+# get http://localhost:3000/movies
+
+## post http://localhost:3000/actors
+# Content-Type: application/json
+
+# {
+#     "name":"Giblov Georgiy"
+# }
+
 

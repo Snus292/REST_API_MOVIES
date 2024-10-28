@@ -1,4 +1,4 @@
-Name,Year,Genre,Run_time,Rating,Meta_score,Votes,Director,cast,Gross
+Name,Year,Genre,Run_time,Rating,Meta_score,Votes,Director,Cast,Gross
 The Shawshank Redemption,1994,Drama            ,142 ,9.3,80.0,2377480,Frank Darabont,"Tim Robbins, Morgan Freeman, Bob Gunton, William Sadler",28.34
 The Godfather,1972,"Crime, Drama            ",175 ,9.2,100.0,1646818,Francis Ford Coppola,"Marlon Brando, Al Pacino, James Caan, Diane Keaton",134.97
 The Dark Knight,2008,"Action, Crime, Drama            ",152 ,9.0,84.0,2341261,Christopher Nolan,"Christian Bale, Heath Ledger, Aaron Eckhart, Michael Caine",534.86

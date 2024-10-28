@@ -4,8 +4,8 @@ const movieService = require('../services/movieService');
 exports.createMovie = async (req, res) => {
   try {
     const { title } = req.body
-    // поверка на существование актера с таким именем
-    const existingMovie = await movieService.findMovieByTitle(title); //реализован в actorService
+    // проверка на существование актера с таким именем
+    const existingMovie = await movieService.findMovieByTitle(title); // Предполагается, что этот метод реализован в actorService
     if (existingMovie) {
       return res.status(400).json({ message: 'фильм с таким именем уже существует' });
     }
@@ -17,7 +17,7 @@ exports.createMovie = async (req, res) => {
   }
 };
 
-
+// получение фильмов с фильтрацией и пагинацией
 exports.getMovies = async (req, res) => {
   try {
     const movies = await movieService.getMovies(req.query);
@@ -28,7 +28,7 @@ exports.getMovies = async (req, res) => {
   }
 };
 
-
+// фильмм по ID
 exports.getMovieById = async (req, res) => {
   try {
     const movie = await movieService.getMovieById(req.params.id);
@@ -42,7 +42,7 @@ exports.getMovieById = async (req, res) => {
   }
 };
 
-
+// обновление
 exports.updateMovie = async (req, res) => {
   try {
     const movie = await movieService.updateMovie(req.params.id, req.body);
@@ -56,7 +56,7 @@ exports.updateMovie = async (req, res) => {
   }
 };
 
-
+// удаление
 exports.deleteMovie = async (req, res) => {
   try {
     const success = await movieService.deleteMovie(req.params.id);
@@ -70,7 +70,7 @@ exports.deleteMovie = async (req, res) => {
   }
 };
 
-
+// добавление актера к фильму
 exports.addActorToMovie = async (req, res) => {
   try {
     const movie = await movieService.addActorToMovie(req.params.id, req.body.actorId);
@@ -84,7 +84,7 @@ exports.addActorToMovie = async (req, res) => {
   }
 };
 
-
+// удаление актера из фильма
 exports.removeActorFromMovie = async (req, res) => {
   try {
     const movie = await movieService.removeActorFromMovie(req.params.id, req.params.actorId);

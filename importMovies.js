@@ -3,68 +3,69 @@ const path = require('path');
 const csv = require('csv-parser');
 const { Movie, Genre, Director, Actor } = require('./models'); // Импорт всех необходимых моделей
 
-// Путь к CSV файлу
+//путь к CSV файлу
 const csvFilePath = path.join(__dirname, 'movies_imdb.csv'); 
 
-// Функция для импорта данных
+//функция для импорта данных
 const importMovies = async () => {
   try {
     const moviesData = [];
 
     fs.createReadStream(csvFilePath)
-      .pipe(csv())
-      .on('data', (row) => {
-        moviesData.push(row); // Читаем каждую строку из CSV
+      .pipe(csv()) // обработка через парсер, для перестройки строк в Обьекты
+      .on('data', (row) => { // подписка на событие data для обработки каждой строки
+        moviesData.push(row); //при обработке каждой строки (в виде объекта row) добавл в массив
       })
       .on('end', async () => {
-        console.log('CSV файл успешно прочитан. Импортируем данные в базу...');
+        console.log('CSV прочитан. Импорт в БД...');
 
-        for (const movieRow of moviesData) {
-          // Найдем или создадим режиссера
+        for (const movieRow of moviesData) { //перебор каждог объекта movieRow в массиве moviesData
+          //найти или создать режиссера
           const [director, createdDirector] = await Director.findOrCreate({
             where: { name: movieRow.Director.trim() }
-          });
+          });                            //trim() удаляет лишние пробелы.
 
           
-          // Создаем фильм с правильными полями
+          //фильм с  полями
           const movie = await Movie.create({
-            title: movieRow.Name.trim(),          // Поле 'Name' из CSV -> 'title'
-            release_year: parseInt(movieRow.Year), // Поле 'Year' -> 'release_year'
-            run_time: parseInt(movieRow.Run_time), // Поле 'Run_time' -> 'run_time'
-            rating: parseFloat(movieRow.Rating),   // Поле 'Rating' -> 'rating'
-            meta_score: parseFloat(movieRow.Meta_score), // Поле 'Meta_score' -> 'meta_score'
-            votes: parseInt(movieRow.Votes),       // Поле 'Votes' -> 'votes'
-            gross: parseFloat(movieRow.Gross),     // Поле 'Gross' -> 'gross'
-            directorId: director.id                // Связь с режиссером
+            title: movieRow.Name.trim(),          
+            release_year: parseInt(movieRow.Year), 
+            run_time: parseInt(movieRow.Run_time), 
+            rating: parseFloat(movieRow.Rating),   
+            meta_score: parseFloat(movieRow.Meta_score),
+            votes: parseInt(movieRow.Votes),       
+            gross: parseFloat(movieRow.Gross),
+            directorId: director.id                
           });
 
-          // === Обработка жанров ===
+          //обработка жанров. //split(',') делит строку movieRow.Genre на массив жанров
           const genresNames = movieRow.Genre.split(',').map(genre => genre.trim());
-          for (const genreName of genresNames) {
+          for (const genreName of genresNames) {               //trim() удаляет лишние пробелы.
             const [genre, createdGenre] = await Genre.findOrCreate({
               where: { name: genreName }
             });
-            await movie.addGenre(genre);  // Связь "многие ко многим" между фильмом и жанром
+            await movie.addGenre(genre);  //связ "многие ко многим" между фильмом и жанром
           }
 
-          // === Обработка актеров ===
-          const actorsNames = movieRow.cast.split(',').map(actor => actor.trim());
+          //обработка актеров
+          const actorsNames = movieRow.Cast.split(',').map(actor => actor.trim());
           for (const actorName of actorsNames) {
+                  //обьект , логическое значение
             const [actor, createdActor] = await Actor.findOrCreate({
               where: { name: actorName }
             });
-            await movie.addActor(actor);  // Связь "многие ко многим" между фильмом и актерами
+            await movie.addActor(actor);  //связ "многие ко многим" между фильмом и актерами
           }
 
           console.log(`Фильм "${movieRow.Name}" добавлен в базу данных.`);
         }
 
-        console.log('Импорт данных завершен.');
+        console.log('импорт данных завершен.');
       });
   } catch (error) {
     console.error('Ошибка импорта данных:', error);
   }
 };
 
-// Запуск функции импортаа
+
 importMovies();
