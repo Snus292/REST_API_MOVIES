@@ -1,12 +1,12 @@
 const express = require('express');
 const router = express.Router();
 
-// Импортируем все маршруты
+//импорт
 const moviesRouter = require('./movies');
 // const directorsRouter = require('./directors');
 const actorsRouter = require('./actors');
 
-// Подключаем маршруты
+// подкл
 router.use('/movies', moviesRouter);
 // router.use('/directors', directorsRouter);
 router.use('/actors', actorsRouter);
